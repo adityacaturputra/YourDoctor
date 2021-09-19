@@ -1,11 +1,11 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {GetStarted} from './pages';
+import Router from './router';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <GetStarted />
+      <Router />
     </NavigationContainer>
   );
 };
