@@ -24,30 +24,35 @@ const ChooseDoctor = ({navigation}) => {
         profile={DummyDoctor10}
         name="Harry Setiawan"
         desc="Pria"
+        onPress={() => navigation.navigate('Chatting')}
       />
       <ListDoctor
         type="next"
         profile={DummyDoctor9}
         name="Harry Setiawani"
         desc="Wanita"
+        onPress={() => navigation.navigate('Chatting')}
       />
       <ListDoctor
         type="next"
         profile={DummyDoctor8}
         name="Harry Setiawanto"
         desc="Pria"
+        onPress={() => navigation.navigate('Chatting')}
       />
       <ListDoctor
         type="next"
         profile={DummyDoctor7}
         name="Harry Setiawati"
         desc="Wanita"
+        onPress={() => navigation.navigate('Chatting')}
       />
       <ListDoctor
         type="next"
         profile={DummyDoctor5}
         name="Harry Setiawajem"
         desc="Wanita"
+        onPress={() => navigation.navigate('Chatting')}
       />
     </View>
   );
