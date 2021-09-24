@@ -12,6 +12,7 @@ import {
   Doctor,
   ChooseDoctor,
   Chatting,
+  UserProfile,
 } from '../pages';
 import {BottomNavigator} from '../components';
 const Stack = createNativeStackNavigator();
@@ -41,7 +42,7 @@ const MainApp = () => {
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName="Splash">
+    <Stack.Navigator initialRouteName="MainApp">
       <Stack.Screen
         name="Splash"
         component={Splash}
@@ -80,6 +81,11 @@ const Router = () => {
       <Stack.Screen
         name="Chatting"
         component={Chatting}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="UserProfile"
+        component={UserProfile}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

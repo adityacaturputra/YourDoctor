@@ -8,7 +8,7 @@ import {
   DummyDoctor8,
   DummyDoctor9,
 } from '../../assets';
-import {Header, ListDoctor} from '../../components';
+import {Header, List} from '../../components';
 import {colors} from '../../utils';
 
 const ChooseDoctor = ({navigation}) => {
@@ -19,35 +19,35 @@ const ChooseDoctor = ({navigation}) => {
         type="dark"
         onPress={() => navigation.goBack()}
       />
-      <ListDoctor
+      <List
         type="next"
         profile={DummyDoctor10}
         name="Harry Setiawan"
         desc="Pria"
         onPress={() => navigation.navigate('Chatting')}
       />
-      <ListDoctor
+      <List
         type="next"
         profile={DummyDoctor9}
         name="Harry Setiawani"
         desc="Wanita"
         onPress={() => navigation.navigate('Chatting')}
       />
-      <ListDoctor
+      <List
         type="next"
         profile={DummyDoctor8}
         name="Harry Setiawanto"
         desc="Pria"
         onPress={() => navigation.navigate('Chatting')}
       />
-      <ListDoctor
+      <List
         type="next"
         profile={DummyDoctor7}
         name="Harry Setiawati"
         desc="Wanita"
         onPress={() => navigation.navigate('Chatting')}
       />
-      <ListDoctor
+      <List
         type="next"
         profile={DummyDoctor5}
         name="Harry Setiawajem"
