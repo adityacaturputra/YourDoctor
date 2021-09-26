@@ -19,7 +19,7 @@ const UpdateProfile = ({navigation}) => {
           <Gap height={24} />
           <Input label="Password" />
           <Gap height={40} />
-          <Button title="Save Profile" />
+          <Button title="Save Profile" onPress={() => navigation.goBack()} />
         </View>
       </ScrollView>
     </View>
