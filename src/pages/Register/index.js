@@ -4,6 +4,7 @@ import {ScrollView, StyleSheet, View} from 'react-native';
 import {Header, Input, Button, Gap, Loading} from '../../components';
 import {Fire} from '../../config';
 import {colors, useForm} from '../../utils';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const Register = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -28,6 +29,12 @@ const Register = ({navigation}) => {
       .catch(error => {
         setLoading(false);
         const errorMessage = error.message;
+        showMessage({
+          message: errorMessage,
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
         console.log('error register: ', errorMessage);
       });
   };
