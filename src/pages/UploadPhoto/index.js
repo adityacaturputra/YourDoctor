@@ -1,30 +1,40 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {Header, Button, Link, Gap} from '../../components';
 import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
+import {launchImageLibrary} from 'react-native-image-picker';
 import {colors, fonts} from '../../utils';
 import {useState} from 'react';
 
 const UploadPhoto = ({navigation}) => {
   const [hasPhoto, setHasPhoto] = useState(false);
+  const [photo, setPhoto] = useState(ILNullPhoto);
+  const getImage = () => {
+    launchImageLibrary({}, response => {
+      console.log(response);
+      const source = {uri: response.assets[0].uri};
+      setPhoto(source);
+      setHasPhoto(true);
+    });
+  };
   return (
     <View style={styles.page}>
       <Header title="Upload Photo" />
       <View style={styles.content}>
         <View style={styles.profile}>
-          <View style={styles.avatarWrapper}>
-            <Image source={ILNullPhoto} style={styles.avatar} />
+          <TouchableOpacity style={styles.avatarWrapper} onPress={getImage}>
+            <Image source={photo} style={styles.avatar} />
             {hasPhoto ? (
               <IconRemovePhoto style={styles.addPhoto} />
             ) : (
               <IconAddPhoto style={styles.addPhoto} />
             )}
-          </View>
+          </TouchableOpacity>
           <Text style={styles.name}>Shayna Melinda</Text>
           <Text style={styles.profession}>Product Designer</Text>
         </View>
         <View>
-          <Button title="Upload and Continue" disable />
+          <Button title="Upload and Continue" disable={!hasPhoto} />
           <Gap height={30} />
           <Link
             title="Skip for this"
