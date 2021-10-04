@@ -1,16 +1,26 @@
 import React from 'react';
+import {useState} from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {Header, Button, Link, Gap} from '../../components';
 import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {showMessage} from 'react-native-flash-message';
 import {colors, fonts} from '../../utils';
-import {useState} from 'react';
 
 const UploadPhoto = ({navigation}) => {
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILNullPhoto);
   const getImage = () => {
     launchImageLibrary({}, response => {
+      if (response.didCancel || response.error) {
+        showMessage({
+          message: 'oops sepertinya anda tidak jadi memilih fotonya?',
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
+        return;
+      }
       console.log(response);
       const source = {uri: response.assets[0].uri};
       setPhoto(source);
