@@ -1,10 +1,10 @@
 import React from 'react';
 import {useState} from 'react';
+import {showMessage} from 'react-native-flash-message';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Header, Input, Button, Gap, Loading} from '../../components';
 import {Fire} from '../../config';
-import {colors, useForm} from '../../utils';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import {colors, storeData, useForm} from '../../utils';
 
 const Register = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -16,22 +16,25 @@ const Register = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   const onContinue = () => {
-    console.log(Fire);
     setLoading(true);
 
     Fire.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
       .then(success => {
+        console.log('sending...');
         setLoading(false);
-        setForm('reset');
         const data = {
           fullName: form.fullName,
           profession: form.profession,
           email: form.email,
         };
+        setForm('reset');
         Fire.database()
           .ref('users/' + success.user.uid)
           .set(data);
+
+        storeData('user', data);
+        navigation.navigate('UploadPhoto');
         console.log('register success: ', success);
       })
       .catch(error => {
