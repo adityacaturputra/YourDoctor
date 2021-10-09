@@ -7,7 +7,7 @@ import {
   NewsItem,
   RatedDoctor,
 } from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, getData} from '../../utils';
 import {DummyDoctor1, JSONCategoryDoctor} from '../../assets';
 
 const Doctor = ({navigation}) => {
