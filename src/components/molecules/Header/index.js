@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Gap, Button} from '../../../components';
 import {colors, fonts} from '../../../utils';
 import DarkProfile from './DarkProfile';
@@ -10,11 +10,13 @@ const Header = ({title, type, onPress}) => {
   }
   return (
     <View style={styles.container(type)}>
-      <Button
-        type="icon-only"
-        icon={type === 'dark' ? 'back-light' : 'back-dark'}
-        onPress={onPress}
-      />
+      <TouchableOpacity>
+        <Button
+          type="icon-only"
+          icon={type === 'dark' ? 'back-light' : 'back-dark'}
+          onPress={onPress}
+        />
+      </TouchableOpacity>
       <Text style={styles.text(type)}>{title}</Text>
       <Gap width={24} />
     </View>
