@@ -1,25 +1,73 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {useEffect} from 'react';
+import {useState} from 'react';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {Header, Input, Profile, Button, Gap} from '../../components';
-import {colors} from '../../utils';
+import {colors, getData} from '../../utils';
+import {Fire} from '../../config';
+import {showMessage} from 'react-native-flash-message';
 
 const UpdateProfile = ({navigation}) => {
+  const [profile, setProfile] = useState({
+    fullName: '',
+    profession: '',
+    email: '',
+  });
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    getData('user').then(res => {
+      res.photo = {uri: res.photo};
+      setProfile({...profile, ...res});
+    });
+  }, []);
+
+  const update = () => {
+    const data = profile;
+    data.photo = profile.photo.uri;
+    Fire.database()
+      .ref(`users/${profile.uid}`)
+      .update(data)
+      .then(() => {
+        console.log('success');
+      })
+      .catch(error => {
+        showMessage({
+          message: error.message,
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
+      });
+  };
+
+  const changeText = (key, value) => {
+    setProfile({...profile, [key]: value});
+  };
   return (
     <View style={styles.page}>
       <Header title="Edit Profile" onPress={() => navigation.goBack()} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
-          <Profile />
+          <Profile photo={profile.photo} />
           <Gap height={26} />
-          <Input label="Full Name" />
+          <Input
+            label="Full Name"
+            value={profile.fullName}
+            onChangeText={value => changeText('fullName', value)}
+          />
           <Gap height={24} />
-          <Input label="Pekerjaan" />
+          <Input
+            label="Pekerjaan"
+            value={profile.profession}
+            onChangeText={value => changeText('profession', value)}
+          />
           <Gap height={24} />
-          <Input label="Email" />
+          <Input label="Email" value={profile.email} disable />
           <Gap height={24} />
-          <Input label="Password" />
+          <Input label="Password" value={password} />
           <Gap height={40} />
-          <Button title="Save Profile" onPress={() => navigation.goBack()} />
+          <Button title="Save Profile" onPress={update} />
         </View>
       </ScrollView>
     </View>
