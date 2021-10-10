@@ -1,10 +1,9 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {showMessage} from 'react-native-flash-message';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Header, Input, Button, Gap, Loading} from '../../components';
 import {Fire} from '../../config';
-import {colors, storeData, useForm} from '../../utils';
+import {colors, storeData, useForm, showError} from '../../utils';
 
 const Register = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -42,12 +41,7 @@ const Register = ({navigation}) => {
         dispatch({type: 'SET_LOADING', value: false});
 
         const errorMessage = error.message;
-        showMessage({
-          message: errorMessage,
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(errorMessage);
         console.log('error register: ', errorMessage);
       });
   };

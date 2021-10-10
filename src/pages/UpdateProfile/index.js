@@ -3,9 +3,8 @@ import {useEffect} from 'react';
 import {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Header, Input, Profile, Button, Gap} from '../../components';
-import {colors, getData, storeData} from '../../utils';
+import {colors, getData, storeData, showError} from '../../utils';
 import {Fire} from '../../config';
-import {showMessage} from 'react-native-flash-message';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {ILNullPhoto} from '../../assets';
 
@@ -30,12 +29,7 @@ const UpdateProfile = ({navigation}) => {
   const update = () => {
     if (password.length > 0) {
       if (password.length < 6) {
-        showMessage({
-          message: 'Password kurang dari 6 karakter',
-          type: 'default',
-          backgroundColor: colors.error,
-          color: 'white',
-        });
+        showError('Password kurang dari 6 karakter');
       } else {
         updatePassword();
         updateProfileData();
@@ -50,14 +44,7 @@ const UpdateProfile = ({navigation}) => {
   const updatePassword = () => {
     Fire.auth().onAuthStateChanged(user => {
       if (user) {
-        user.updatePassword(password).catch(err =>
-          showMessage({
-            message: err.message,
-            type: 'default',
-            backgroundColor: colors.error,
-            color: 'white',
-          }),
-        );
+        user.updatePassword(password).catch(err => showError(err.message));
       }
     });
   };
@@ -74,12 +61,7 @@ const UpdateProfile = ({navigation}) => {
         storeData('user', data);
       })
       .catch(error => {
-        showMessage({
-          message: error.message,
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(error.Message);
       });
   };
 
@@ -98,12 +80,7 @@ const UpdateProfile = ({navigation}) => {
       },
       response => {
         if (response.didCancel || response.error) {
-          showMessage({
-            message: 'oops sepertinya anda tidak jadi memilih fotonya?',
-            type: 'default',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
+          showError('oops sepertinya anda tidak jadi memilih fotonya?');
           return;
         }
         console.log(response.assets[0]);

@@ -4,8 +4,7 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {Header, Button, Link, Gap} from '../../components';
 import {IconAddPhoto, IconRemovePhoto, ILNullPhoto} from '../../assets';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {showMessage} from 'react-native-flash-message';
-import {colors, fonts, storeData} from '../../utils';
+import {colors, fonts, storeData, showError} from '../../utils';
 import {Fire} from '../../config';
 
 const UploadPhoto = ({navigation, route}) => {
@@ -24,12 +23,7 @@ const UploadPhoto = ({navigation, route}) => {
       },
       response => {
         if (response.didCancel || response.error) {
-          showMessage({
-            message: 'oops sepertinya anda tidak jadi memilih fotonya?',
-            type: 'default',
-            backgroundColor: colors.error,
-            color: colors.white,
-          });
+          showError('oops sepertinya anda tidak jadi memilih fotonya?');
           return;
         }
         console.log(response.assets[0]);
