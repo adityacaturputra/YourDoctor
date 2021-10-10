@@ -1,22 +1,23 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {Input, Link, Button, Gap, Loading} from '../../components';
+import {Input, Link, Button, Gap} from '../../components';
 import {ILLogo} from '../../assets';
 import {colors, fonts, storeData, useForm} from '../../utils';
 import {Fire} from '../../config';
+import {useDispatch} from 'react-redux';
 import {showMessage} from 'react-native-flash-message';
-import {useState} from 'react';
 
 const Login = ({navigation}) => {
   const [form, setForm] = useForm({email: '', password: ''});
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const login = () => {
-    setLoading(true);
+    dispatch({type: 'SET_LOADING', value: true});
     Fire.auth()
       .signInWithEmailAndPassword(form.email, form.password)
       .then(res => {
-        setLoading(false);
+        dispatch({type: 'SET_LOADING', value: false});
+
         Fire.database()
           .ref(`users/${res.user.uid}/`)
           .once('value')
@@ -29,7 +30,8 @@ const Login = ({navigation}) => {
       })
       .catch(error => {
         console.log('error: ', error);
-        setLoading(false);
+        dispatch({type: 'SET_LOADING', value: false});
+
         showMessage({
           message: error.message,
           type: 'default',
@@ -69,7 +71,6 @@ const Login = ({navigation}) => {
           />
         </View>
       </ScrollView>
-      {loading && <Loading />}
     </>
   );
 };

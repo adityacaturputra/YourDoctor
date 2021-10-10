@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {showMessage} from 'react-native-flash-message';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {Header, Input, Button, Gap, Loading} from '../../components';
@@ -13,16 +13,17 @@ const Register = ({navigation}) => {
     email: '',
     password: '',
   });
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const onContinue = () => {
-    setLoading(true);
+    dispatch({type: 'SET_LOADING', value: true});
 
     Fire.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
       .then(success => {
         console.log('sending...');
-        setLoading(false);
+        dispatch({type: 'SET_LOADING', value: false});
+
         const data = {
           fullName: form.fullName,
           profession: form.profession,
@@ -38,7 +39,8 @@ const Register = ({navigation}) => {
         navigation.navigate('UploadPhoto', data);
       })
       .catch(error => {
-        setLoading(false);
+        dispatch({type: 'SET_LOADING', value: false});
+
         const errorMessage = error.message;
         showMessage({
           message: errorMessage,
@@ -85,7 +87,6 @@ const Register = ({navigation}) => {
           </ScrollView>
         </View>
       </View>
-      {loading && <Loading />}
     </>
   );
 };

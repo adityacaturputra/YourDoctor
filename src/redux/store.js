@@ -5,7 +5,16 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  return state;
+  switch (action.type) {
+    case 'SET_LOADING':
+      return {
+        ...state,
+        loading: action.value,
+      };
+
+    default:
+      return state;
+  }
 };
 
 const store = createStore(reducer);
