@@ -39,11 +39,11 @@ const UpdateProfile = ({navigation}) => {
       } else {
         updatePassword();
         updateProfileData();
-        // navigation.replace('MainApp');
+        navigation.replace('MainApp');
       }
     } else {
       updateProfileData();
-      // navigation.replace('MainApp');
+      navigation.replace('MainApp');
     }
   };
 
