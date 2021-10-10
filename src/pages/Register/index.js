@@ -20,7 +20,6 @@ const Register = ({navigation}) => {
     Fire.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
       .then(success => {
-        console.log('sending...');
         dispatch({type: 'SET_LOADING', value: false});
 
         const data = {
@@ -42,7 +41,6 @@ const Register = ({navigation}) => {
 
         const errorMessage = error.message;
         showError(errorMessage);
-        console.log('error register: ', errorMessage);
       });
   };
 

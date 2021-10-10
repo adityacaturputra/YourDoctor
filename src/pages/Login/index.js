@@ -35,7 +35,6 @@ const Login = ({navigation}) => {
           });
       })
       .catch(error => {
-        console.log('error: ', error);
         dispatch({type: 'SET_LOADING', value: false});
 
         showError(error.message);

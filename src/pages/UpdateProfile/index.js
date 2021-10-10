@@ -57,7 +57,6 @@ const UpdateProfile = ({navigation}) => {
       .ref(`users/${profile.uid}`)
       .update(data)
       .then(() => {
-        console.log('success', data);
         storeData('user', data);
       })
       .catch(error => {
@@ -83,7 +82,6 @@ const UpdateProfile = ({navigation}) => {
           showError('oops sepertinya anda tidak jadi memilih fotonya?');
           return;
         }
-        console.log(response.assets[0]);
 
         const source = {uri: response.assets[0].uri};
         setPhotoForDB(

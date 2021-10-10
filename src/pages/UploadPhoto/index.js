@@ -26,7 +26,6 @@ const UploadPhoto = ({navigation, route}) => {
           showError('oops sepertinya anda tidak jadi memilih fotonya?');
           return;
         }
-        console.log(response.assets[0]);
         setPhotoForDB(
           `data:${response.assets[0].type};base64, ${response.assets[0].base64}`,
         );
