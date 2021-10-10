@@ -2,14 +2,7 @@ import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Input, Link, Button, Gap} from '../../components';
 import {ILLogo} from '../../assets';
-import {
-  colors,
-  fonts,
-  storeData,
-  useForm,
-  showError,
-  showSuccess,
-} from '../../utils';
+import {colors, fonts, storeData, useForm, showError} from '../../utils';
 import {Fire} from '../../config';
 import {useDispatch} from 'react-redux';
 
@@ -27,9 +20,9 @@ const Login = ({navigation}) => {
         Fire.database()
           .ref(`users/${res.user.uid}/`)
           .once('value')
-          .then(res => {
-            if (res.val()) {
-              storeData('user', res.val());
+          .then(user => {
+            if (user.val()) {
+              storeData('user', user.val());
               navigation.replace('MainApp');
             }
           });
